@@ -9,6 +9,7 @@ void calcualte(int size_Of_array, int *ptr, int sum)
     if (ptr == NULL)
     {
         printf("ERROR! memory is empty");
+        exit(0);
     }
 
     printf("Enter the element of the array: ");
