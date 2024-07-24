@@ -34,6 +34,12 @@ int main()
     printf("Enter the size of the array: ");
     scanf("%d", &size);
 
+    if (size <= 0)
+    {
+        printf("ERROR ! Array size is %d", size);
+        exit(0);
+    }
+
     printArrayElements(size);
 
     return 0;
