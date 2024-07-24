@@ -1,9 +1,9 @@
-// find the smallest element of the array
+// find the largest elemetn in array
 
 #include <stdio.h>
 #include <stdlib.h>
 
-void findSmallestElement(int size)
+void findLargestElement(int size)
 {
     int *arr = (int *)malloc(size * sizeof(int));
 
@@ -33,8 +33,8 @@ void findSmallestElement(int size)
         }
     }
 
-    int smallestElement = arr[0];
-    printf("The smallest element of the array is: %d", smallestElement);
+    int largestElement = arr[size - 1];
+    printf("The smallest element of the array is: %d", largestElement);
 
     free(arr);
 }
@@ -46,6 +46,6 @@ int main()
     printf("Enter the size of the arrya: ");
     scanf("%d", &size);
 
-    findSmallestElement(size);
+    findLargestElement(size);
     return 0;
 }
