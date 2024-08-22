@@ -1,20 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define max 4
 
 struct stack
 {
-    int arr[max];
+    int size;
+    int *arr;
     int top;
 };
-
-int isFull(struct stack *ptr)
-{
-    if (ptr->top == max - 1)
-        return 1;
-    else
-        return 0;
-}
 
 int isEmpty(struct stack *ptr)
 {
@@ -24,17 +16,25 @@ int isEmpty(struct stack *ptr)
         return 0;
 }
 
+int isFull(struct stack *ptr)
+{
+    if (ptr->top == ptr->size - 1)
+        return 1;
+    else
+        return 0;
+}
+
 void push(struct stack *ptr, int value)
 {
     if (isFull(ptr))
     {
-        printf("Stack Overflow.\n");
+        printf("Stack overflow: %d can't be pushed.\n", value);
     }
     else
     {
         ptr->top++;
         ptr->arr[ptr->top] = value;
-        printf("Insertd %d into the stack.\n", value);
+        printf("Inserted %d into the stack.\n", value);
     }
 }
 
@@ -42,71 +42,79 @@ int pop(struct stack *ptr)
 {
     if (isEmpty(ptr))
     {
-        printf("Stack underFlow! no elements to pop.\n");
+        printf("Stack underflow.\n");
+        return -1;
     }
     else
     {
-        int value = ptr->arr[ptr->top];
+        int val = ptr->arr[ptr->top];
         ptr->top--;
-        return value;
+        return val;
     }
 }
 
-void getStackData(struct stack *s)
+void getData(struct stack *ptr)
 {
-    if (isEmpty(s))
+    if (isEmpty(ptr))
     {
-        printf("Stack is emplty.\n");
+        printf("Stack is empty.\n");
     }
     else
     {
-        printf("Stack elements are: \n");
-        int i;
-        for (i = s->top; i >= 0; i--)
+        printf("Stack elements: \n");
+        for (int i = ptr->top; i >= 0; i--)
         {
-            printf("%d\n", s->arr[i]);
+            printf("%d\n", ptr->arr[i]);
         }
     }
 }
 
 int main()
 {
-    struct stack s;
-    s.top = -1;
+    struct stack *s = (struct stack *)malloc(sizeof(struct stack));
+    s->size = 4;
+    s->top = -1;
+    s->arr = (int *)malloc(s->size * sizeof(int));
 
     int choice, value;
 
-    do
+    while (1)
     {
-        printf("\nMenu:\n");
-        printf("1. Insert (push):\n");
-        printf("2. Delete (pop):\n");
-        printf("3. Display\n");
-        printf("4. Exit\n");
+        printf("Menu:\n");
+        printf("1. Push.\n");
+        printf("2. Pop.\n");
+        printf("3. Display.\n");
+        printf("4. Exit.\n");
+
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice)
         {
         case 1:
-            printf("Enter teh value to be inserted:");
+            printf("Enter your data: ");
             scanf("%d", &value);
-            push(&s, value);
+            push(s, value);
             break;
         case 2:
-            value = pop(&s);
-            if (value != 1)
+            value = pop(s);
+            if (value != -1)
             {
-                printf("Popped vlaue: %d\n", value);
+                printf("Popped value: %d\n", value);
             }
             break;
         case 3:
-            getStackData(&s);
+            getData(s);
             break;
+        case 4:
+            printf("Exiting program.\n");
+            free(s->arr);
+            free(s);
+            return 0;
         default:
-            printf("Invlid choice. Please try again.\n");
+            printf("Enter a valid choice.\n");
+            break;
         }
-    } while (choice != 4);
-
+    }
     return 0;
 }
