@@ -1,68 +1,46 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#define max 100
 
 struct stack
 {
+    char arr[20];
     int top;
-    char arr[max];
 };
 
 void push(struct stack *s, char ch)
 {
-    if (s->top == max - 1)
-    {
-        printf("Stack overflow.\n");
-    }
-    else
-    {
-        s->top++;
-        s->arr[s->top] = ch;
-    }
+    s->top++;
+    s->arr[s->top] = ch;
 }
 
 char pop(struct stack *s)
 {
-    if (s->top == -1)
-    {
-        printf("Stack underflow.\n");
-        return '\0';
-    }
-    else
-    {
-        return s->arr[s->top--];
-    }
+    char ch = s->arr[s->top];
+    s->top--;
+    return ch;
 }
 
-void reverseString(char str[])
+void main()
 {
     struct stack s;
+    s.top = -1;
+
+    char str[20];
+    char ch;
+
+    printf("Enter a string: ");
+    fgets(str, 20, stdin);
+    str[strcspn(str, "\n")] = '\0';
 
     for (int i = 0; i < strlen(str); i++)
     {
         push(&s, str[i]);
     }
 
+    printf("Reverse String: ");
     for (int i = 0; i < strlen(str); i++)
     {
-        str[i] = pop(&s);
+        ch = pop(&s);
+        printf("%c", ch);
     }
-}
-
-int main()
-{
-    char str[max];
-
-    printf("Enter a string: ");
-    fgets(str, max, stdin);
-    str[strcspn(str, "\n")] = '\0';
-
-    printf("Original String: %s\n", str);
-
-    reverseString(str);
-
-    printf("Reversed String: %s\n", str);
-
-    return 0;
 }
