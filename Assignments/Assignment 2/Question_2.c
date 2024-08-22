@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct employee
@@ -31,7 +32,18 @@ void displayEmployeeData(struct employee emp)
 
 int main()
 {
-    struct employee emp[3];
+    int n;
+    printf("Enter how many employee details you want to store: ");
+    scanf("%d", &n);
+
+    struct employee *emp = (struct employee *)malloc(n * sizeof(struct employee));
+
+    if (emp == NULL)
+    {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
     int choice, i;
 
     while (1)
@@ -46,7 +58,7 @@ int main()
         switch (choice)
         {
         case 1:
-            for (i = 0; i < 3; i++)
+            for (i = 0; i < n; i++)
             {
                 printf("\nEnter details for Employee %d:\n", i + 1);
                 inputEmployeeData(&emp[i]);
@@ -55,14 +67,15 @@ int main()
 
         case 2:
             printf("\nEmployee Details:\n");
-            for (i = 0; i < 3; i++)
+            for (i = 0; i < n; i++)
             {
                 displayEmployeeData(emp[i]);
             }
             break;
 
         case 3:
-            // Exit the program
+            // Free the allocated memory before exiting
+            free(emp);
             printf("Exiting the program.\n");
             return 0;
 
@@ -73,3 +86,38 @@ int main()
 
     return 0;
 }
+
+/*
+output
+Enter how many employee details you want to store: 1
+
+Menu:
+1. Input Employee Data
+2. Display Employee Data
+3. Exit
+Enter your choice: 1
+
+Enter details for Employee 1:
+Enter Employee Number: 2
+Enter Employee Name: Soumya
+Enter Salary: 230000
+
+Menu:
+1. Input Employee Data
+2. Display Employee Data
+3. Exit
+Enter your choice: 2
+
+Employee Details:
+
+Employee Number: 2
+Employee Name: Soumya
+Salary: 230000.000000
+
+Menu:
+1. Input Employee Data
+2. Display Employee Data
+3. Exit
+Enter your choice: 3
+Exiting the program.
+*/

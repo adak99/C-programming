@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct student
@@ -21,10 +22,15 @@ void display(struct student stud)
 
 int main()
 {
-    struct student students[12];
+    int n;
+    printf("Enter the number student how many student data you want to store: ");
+    scanf("%d", &n);
+
+    struct student *students = (struct student *)malloc(n * sizeof(struct student));
+
     int i;
 
-    for (i = 0; i < 12; i++)
+    for (i = 0; i < n; i++)
     {
         printf("\nEnter details for student %d:\n", i + 1);
 
@@ -48,7 +54,7 @@ int main()
     }
 
     printf("\nDisplaying details of all students:\n");
-    for (i = 0; i < 12; i++)
+    for (i = 0; i < n; i++)
     {
         display(students[i]);
     }

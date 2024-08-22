@@ -31,7 +31,7 @@ int main()
     printf("YY: ");
     scanf("%d", &birthDate.year);
 
-    preDate.date = 8;
+    preDate.date = 22;
     preDate.month = 8;
     preDate.year = 2024;
 
