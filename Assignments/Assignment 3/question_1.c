@@ -8,25 +8,9 @@ struct stack
     int top;
 };
 
-int isEmpty(struct stack *ptr)
-{
-    if (ptr->top == -1)
-        return 1;
-    else
-        return 0;
-}
-
-int isFull(struct stack *ptr)
-{
-    if (ptr->top == ptr->size - 1)
-        return 1;
-    else
-        return 0;
-}
-
 void push(struct stack *ptr, int value)
 {
-    if (isFull(ptr))
+    if (ptr->top == ptr->size - 1)
     {
         printf("Stack overflow: %d can't be pushed.\n", value);
     }
@@ -40,7 +24,7 @@ void push(struct stack *ptr, int value)
 
 int pop(struct stack *ptr)
 {
-    if (isEmpty(ptr))
+    if (ptr->top == -1)
     {
         printf("Stack underflow.\n");
         return -1;
@@ -55,7 +39,7 @@ int pop(struct stack *ptr)
 
 void getData(struct stack *ptr)
 {
-    if (isEmpty(ptr))
+    if (ptr->top == -1)
     {
         printf("Stack is empty.\n");
     }
@@ -72,7 +56,8 @@ void getData(struct stack *ptr)
 int main()
 {
     struct stack *s = (struct stack *)malloc(sizeof(struct stack));
-    s->size = 4;
+    printf("Enter the stack size: ");
+    scanf("%d", &s->size);
     s->top = -1;
     s->arr = (int *)malloc(s->size * sizeof(int));
 
@@ -118,3 +103,47 @@ int main()
     }
     return 0;
 }
+
+/*output
+Enter the stack size: 2
+Menu:
+1. Push.
+2. Pop.
+3. Display.
+4. Exit.
+Enter your choice: 1
+Enter your data: 2
+Inserted 2 into the stack.
+Menu:
+1. Push.
+2. Pop.
+3. Display.
+4. Exit.
+Enter your choice: 1
+Enter your data: 3
+Inserted 3 into the stack.
+Menu:
+1. Push.
+2. Pop.
+3. Display.
+4. Exit.
+Enter your choice: 1
+Enter your data: 4
+Stack overflow: 4 can't be pushed.
+Menu:
+1. Push.
+2. Pop.
+3. Display.
+4. Exit.
+Enter your choice: 3
+Stack elements:
+3
+2
+Menu:
+1. Push.
+2. Pop.
+3. Display.
+4. Exit.
+Enter your choice: 4
+Exiting program.
+*/
