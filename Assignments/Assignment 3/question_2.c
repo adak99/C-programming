@@ -23,14 +23,13 @@ struct stack
 
 void initStack(struct stack *s)
 {
-
     s->size = max;
     s->top = -1;
 }
 
 int isEmpty(struct stack *s)
 {
-    return s->top = -1;
+    return s->top == -1;
 }
 
 int isFull(struct stack *s)
@@ -48,7 +47,7 @@ void push(struct stack *s, struct student value)
     {
         s->top++;
         s->arr[s->top] = value;
-        printf("Recorde pushed onto stack.\n");
+        printf("Record pushed onto stack.\n");
     }
 }
 
@@ -57,6 +56,8 @@ struct student pop(struct stack *s)
     if (isEmpty(s))
     {
         printf("Stack underflow.\n");
+        struct student empty = {-1, "", 0, 0, 0, 0};
+        return empty;
     }
     else
     {
@@ -96,14 +97,14 @@ void displayRollWise(struct stack *s)
 {
     if (isEmpty(s))
     {
-        printf("No record to display.\n");
+        printf("No records to display.\n");
         return;
     }
     else
     {
         for (int i = 0; i <= s->top; i++)
         {
-            for (int j = i + 1; i <= s->top; i++)
+            for (int j = i + 1; j <= s->top; j++)
             {
                 if (s->arr[i].roll > s->arr[j].roll)
                 {
@@ -115,7 +116,7 @@ void displayRollWise(struct stack *s)
         }
     }
 
-    printf("Studetns roll wise: \n");
+    printf("Students sorted roll-wise:\n");
     getData(s);
 }
 
@@ -123,7 +124,7 @@ void displayByMarks(struct stack *s)
 {
     if (isEmpty(s))
     {
-        printf("No record to disply.\n");
+        printf("No records to display.\n");
         return;
     }
     else
@@ -186,20 +187,20 @@ int main()
             break;
         case 2:
             std = pop(&s);
-            if (s.top != -1)
+            if (std.roll != -1)
             {
                 printf("Popped Record: Roll: %d, Name: %s\n", std.roll, std.std_name);
             }
-
+            break;
         case 3:
             getData(&s);
             break;
         case 4:
-            displayByMarks(&s);
+            displayRollWise(&s);
             break;
         case 5:
             calculateTotalMarks(&s);
-            printf("Total marks calculate for each student.\n");
+            printf("Total marks calculated for each student.\n");
             break;
         case 6:
             displayByMarks(&s);
@@ -212,6 +213,5 @@ int main()
             break;
         }
     }
-
     return 0;
 }
