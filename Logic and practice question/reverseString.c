@@ -10,7 +10,7 @@ int main()
     printf("Enter a String: ");
     scanf("%s", str);
 
-    while (str[len] != 0)
+    while (str[len] != '\0')
     {
         len++;
     }
