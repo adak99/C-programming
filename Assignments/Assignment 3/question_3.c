@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct stack {
@@ -25,8 +26,7 @@ void main() {
   char ch;
 
   printf("Enter a string: ");
-  fgets(str, 20, stdin);
-  str[strcspn(str, "\n")] = '\0';
+  scanf("%s", str);
 
   for (int i = 0; i < strlen(str); i++) {
     push(&s, str[i]);
