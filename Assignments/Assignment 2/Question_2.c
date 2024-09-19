@@ -79,7 +79,8 @@ int main() {
 }
 
 /*
-output
+output->
+
 Enter how many employee details you want to store: 1
 
 Menu:

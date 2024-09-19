@@ -34,3 +34,17 @@ int main() {
 
   return 0;
 }
+
+/*
+output->
+
+Enter the name of the student: John Doe
+Enter the roll number of the student: 101
+Enter the marks of the student: 85
+
+Student details:
+Name: John Doe
+Roll no: 101
+Marks: 85
+
+*/

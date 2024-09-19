@@ -57,3 +57,38 @@ int main() {
 
   return 0;
 }
+
+/*
+Output->
+
+Enter the number student how many student data you want to store: 2
+
+Enter details for student 1:
+Roll No: 101
+Name: John Doe
+Address: 123 Maple Street
+Age: 20
+Average Marks: 85.5
+
+Enter details for student 2:
+Roll No: 102
+Name: Jane Smith
+Address: 456 Oak Avenue
+Age: 22
+Average Marks: 90.25
+
+Displaying details of all students:
+
+Roll: 101
+Name: John Doe
+Address: 123 Maple Street
+Age: 20
+Average Marks: 85.50
+
+Roll: 102
+Name: Jane Smith
+Address: 456 Oak Avenue
+Age: 22
+Average Marks: 90.25
+
+*/

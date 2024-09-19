@@ -38,3 +38,13 @@ int main() {
 
   return 0;
 }
+
+/*
+output->
+
+DD: 15
+MM: 6
+YY: 2000
+Total days: 8847
+
+*/
