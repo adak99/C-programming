@@ -92,3 +92,54 @@ int main() {
 
   return 0;
 }
+
+/* output->
+
+Enter how many elements you want to store in a queue: 3
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 1
+Enter your data: 10
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 1
+Enter your data: 20
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 1
+Enter your data: 30
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 1
+Enter your data: 40
+Queue is full.
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 3
+10
+20
+30
+
+1.Enqueue
+2.Dequeue
+3.Peek
+4.Exit
+Enter your choice: 4
+Exiting...
+
+*/
