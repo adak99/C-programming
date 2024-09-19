@@ -1,131 +1,167 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-struct stack {
+typedef struct stack {
   int size;
   int *arr;
   int top;
-};
+} stack;
 
-void push(struct stack *ptr, int value) {
-  if (ptr->top == ptr->size - 1) {
-    printf("Stack overflow: %d can't be pushed.\n", value);
-  } else {
-    ptr->top++;
-    ptr->arr[ptr->top] = value;
-    printf("Inserted %d into the stack.\n", value);
-  }
+void initStack(stack *s, int n) {
+  s->arr = (int *)malloc(n * sizeof(int));
+  s->size = n;
+  s->top = -1;
 }
 
-int pop(struct stack *ptr) {
-  if (ptr->top == -1) {
-    printf("Stack underflow.\n");
+bool isEmpty(stack *s) { return s->top == -1; }
+
+bool isFull(stack *s) { return s->top == s->size - 1; }
+
+void push(stack *s, int val) {
+  if (isFull(s)) {
+    printf("Stack over flow.\n");
+    return;
+  }
+  s->arr[++s->top] = val;
+  printf("Push element: %d\n", val);
+}
+
+int pop(stack *s) {
+  if (isEmpty(s)) {
+    printf("Stack is underflow.\n");
     return -1;
-  } else {
-    int val = ptr->arr[ptr->top];
-    ptr->top--;
-    return val;
   }
+  int val = s->arr[s->top--];
+  return val;
 }
 
-void getData(struct stack *ptr) {
-  if (ptr->top == -1) {
-    printf("Stack is empty.\n");
-  } else {
-    printf("Stack elements: \n");
-    for (int i = ptr->top; i >= 0; i--) {
-      printf("%d\n", ptr->arr[i]);
-    }
+int peek(stack *s, int pos) {
+  int strIdx = (s->top - pos) + 1;
+
+  if (strIdx < 0) {
+    printf("Stack is underflow.\n");
+    return 0;
   }
+  return s->arr[strIdx];
 }
 
 int main() {
-  struct stack *s = (struct stack *)malloc(sizeof(struct stack));
-  printf("Enter the stack size: ");
-  scanf("%d", &s->size);
-  s->top = -1;
-  s->arr = (int *)malloc(s->size * sizeof(int));
+  stack s;
 
-  int choice, value;
+  int n, ch, val;
+  printf("Enter the size of the stack: ");
+  scanf("%d", &n);
+
+  initStack(&s, n);
 
   while (1) {
-    printf("Menu:\n");
-    printf("1. Push.\n");
-    printf("2. Pop.\n");
-    printf("3. Display.\n");
-    printf("4. Exit.\n");
-
+    printf("\n1.Push.\n2.Pop.\n3.Peek.\n4.Exit\n");
     printf("Enter your choice: ");
-    scanf("%d", &choice);
+    scanf("%d", &ch);
 
-    switch (choice) {
+    switch (ch) {
       case 1:
-        printf("Enter your data: ");
-        scanf("%d", &value);
-        push(s, value);
+        printf("Enter push element: ");
+        scanf("%d", &val);
+        push(&s, val);
         break;
       case 2:
-        value = pop(s);
-        if (value != -1) {
-          printf("Popped value: %d\n", value);
-        }
+        printf("Pop element: %d\n", pop(&s));
         break;
       case 3:
-        getData(s);
+        for (int i = 1; i <= s.top + 1; i++) {
+          printf("Position-> %d -> %d\n", s.top - i + 1, peek(&s, i));
+        }
         break;
       case 4:
-        printf("Exiting program.\n");
-        free(s->arr);
-        free(s);
+        printf("Exit.....\n");
         return 0;
       default:
-        printf("Enter a valid choice.\n");
+        printf("Invalid choice !!!!.");
         break;
     }
   }
-  return 0;
 }
 
 /*output
-Enter the stack size: 2
-Menu:
-1. Push.
-2. Pop.
-3. Display.
-4. Exit.
+
+Enter the size of the stack: 3
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
 Enter your choice: 1
-Enter your data: 2
-Inserted 2 into the stack.
-Menu:
-1. Push.
-2. Pop.
-3. Display.
-4. Exit.
+Enter push element: 10
+Push element: 10
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
 Enter your choice: 1
-Enter your data: 3
-Inserted 3 into the stack.
-Menu:
-1. Push.
-2. Pop.
-3. Display.
-4. Exit.
+Enter push element: 20
+Push element: 20
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
 Enter your choice: 1
-Enter your data: 4
-Stack overflow: 4 can't be pushed.
-Menu:
-1. Push.
-2. Pop.
-3. Display.
-4. Exit.
+Enter push element: 30
+Push element: 30
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
+Enter your choice: 1
+Enter push element: 40
+Stack over flow.
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
 Enter your choice: 3
-Stack elements:
-3
-2
-Menu:
-1. Push.
-2. Pop.
-3. Display.
-4. Exit.
+Position-> 2 -> 30
+Position-> 1 -> 20
+Position-> 0 -> 10
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
+Enter your choice: 2
+Pop element: 30
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
+Enter your choice: 2
+Pop element: 20
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
+Enter your choice: 2
+Pop element: 10
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
+Enter your choice: 2
+Stack is underflow.
+
+1.Push.
+2.Pop.
+3.Peek.
+4.Exit
 Enter your choice: 4
-Exiting program.
+Exit.....
+
 */
