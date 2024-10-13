@@ -18,6 +18,8 @@ void initStack(int n) // init stack
     s->top = -1;
 }
 
+int isEmpty() { return (s->top == -1); }
+
 void push(int val) // push function to add items in a stack
 {
     if (s->top == s->size - 1)
@@ -32,7 +34,7 @@ void push(int val) // push function to add items in a stack
 
 int pop() // pop function to delete items in a stack
 {
-    if (s->top == -1)
+    if (isEmpty())
     {
         printf("Stack is empty.\n");
         return -1;
@@ -44,7 +46,7 @@ int pop() // pop function to delete items in a stack
 
 int peek() // peek function to use peek a items in a stack
 {
-    if (s->top == -1)
+    if (isEmpty())
     {
         printf("Stack is empty.\n");
         return -1;
@@ -55,7 +57,7 @@ int peek() // peek function to use peek a items in a stack
 
 void display()
 {
-    if (s->top == -1)
+    if (isEmpty())
     {
         printf("Stack is empty.\n");
         return;
