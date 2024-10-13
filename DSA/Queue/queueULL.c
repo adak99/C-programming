@@ -10,12 +10,11 @@ typedef struct Node
 node *front = NULL;
 node *rear = NULL;
 
-void enqueue(int data) // endqueue
+void enqueue(int data)
 {
     node *newNode = (node *)malloc(sizeof(node));
     newNode->data = data;
     newNode->next = NULL;
-
     if (rear == NULL)
     {
         front = rear = newNode;
@@ -26,11 +25,11 @@ void enqueue(int data) // endqueue
     rear = newNode;
 }
 
-int dequeue() // dequeue
+int dequeue()
 {
     if (rear == NULL)
     {
-        printf("This queue is empty.\n");
+        printf("Queue is empty.\n");
         return -1;
     }
 
@@ -43,25 +42,25 @@ int peek()
 {
     if (rear == NULL)
     {
-        printf("This queue is empty.\n");
+        printf("Queue is empty.\n");
         return -1;
     }
 
     return front->data;
 }
 
-void display() // display
+void display()
 {
     if (rear == NULL)
     {
-        printf("This queue is empty.\n");
+        printf("Queue is empty.\n");
         return;
     }
 
     node *currentNode = front;
     while (currentNode != NULL)
     {
-        printf("%d ", currentNode->data);
+        printf("%d\n", currentNode->data);
         currentNode = currentNode->next;
     }
 }
@@ -72,16 +71,14 @@ int main()
     enqueue(10);
     enqueue(20);
     enqueue(30);
-    enqueue(40);
 
-    printf("Delete data-> %d\n", dequeue());
-
-    printf("Display data.\n");
+    printf("Display->\n");
     display();
+    printf("Peek\n");
 
-    while (rear != NULL && front != NULL)
+    while (rear != NULL)
     {
-        printf("\n%d", peek());
+        printf("%d\n", peek());
         dequeue();
     }
 
