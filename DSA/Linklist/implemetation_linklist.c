@@ -7,15 +7,19 @@ typedef struct Node
 	struct Node *next;
 } node;
 
+node *createNode(int new_data)
+{
+	node *newNode = (node *)malloc(sizeof(node));
+	newNode->data = new_data;
+	newNode->next = NULL;
+}
+
 node *head = NULL;
 int size = 0;
 
 void addFirst(int data) // add first
 {
-	node *newNode = (node *)malloc(sizeof(node));
-	newNode->data = data;
-	newNode->next = NULL;
-
+	node *newNode = createNode(data);
 	if (head == NULL)
 	{
 		head = newNode;
@@ -30,10 +34,7 @@ void addFirst(int data) // add first
 
 void addLast(int data) // addLast
 {
-	node *newNode = (node *)malloc(sizeof(node));
-	newNode->data = data;
-	newNode->next = NULL;
-
+	node *newNode = createNode(data);
 	if (head == NULL)
 	{
 		head = newNode;

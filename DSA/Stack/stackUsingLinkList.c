@@ -7,19 +7,23 @@ typedef struct Node
 	struct Node *next;
 } node;
 
+node *createNode(int new_data)
+{
+	node *newNode = (node *)malloc(sizeof(node));
+	newNode->data = new_data;
+	newNode->next = NULL;
+	return newNode;
+}
+
 node *top = NULL;
 int size = 0;
 
 void push(int data)
 {
-	node *newNode = (node *)malloc(sizeof(node));
-	newNode->data = data;
-	newNode->next = NULL;
-
-	if (top == NULL)
+	node *newNode = createNode(data);
+	if (!newNode)
 	{
-		top = newNode;
-		return;
+		printf("Stack overFlow.\n");
 	}
 
 	newNode->next = top;
@@ -34,8 +38,10 @@ int pop()
 		return -1;
 	}
 
+	node *temp = top;
 	int popVal = top->data;
 	top = top->next;
+	free(temp);
 	return popVal;
 }
 
@@ -80,5 +86,6 @@ int main()
 		pop();
 	}
 
+	freeStack();
 	return 0;
 }

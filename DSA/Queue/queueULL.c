@@ -7,14 +7,26 @@ typedef struct Node
     struct Node *next;
 } node;
 
+node *createNode(int newData)
+{
+    node *newNode = (node *)malloc(sizeof(node));
+    newNode->data = newData;
+    newNode->next = NULL;
+    return newNode;
+}
+
 node *front = NULL;
 node *rear = NULL;
 
 void enqueue(int data)
 {
-    node *newNode = (node *)malloc(sizeof(node));
-    newNode->data = data;
-    newNode->next = NULL;
+    node *newNode = createNode(data);
+    if (!newNode)
+    {
+        printf("Queue is full.\n");
+        return;
+    }
+
     if (rear == NULL)
     {
         front = rear = newNode;

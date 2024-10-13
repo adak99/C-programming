@@ -19,10 +19,11 @@ void initStack(int n) // init stack
 }
 
 int isEmpty() { return (s->top == -1); }
+int isFull() { return (s->top == s->size - 1); }
 
 void push(int val) // push function to add items in a stack
 {
-    if (s->top == s->size - 1)
+    if (isFull())
     {
         printf("Stack is full.\n");
         return;
