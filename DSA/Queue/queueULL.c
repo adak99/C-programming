@@ -21,12 +21,6 @@ node *rear = NULL;
 void enqueue(int data)
 {
     node *newNode = createNode(data);
-    if (!newNode)
-    {
-        printf("Queue is full.\n");
-        return;
-    }
-
     if (rear == NULL)
     {
         front = rear = newNode;
