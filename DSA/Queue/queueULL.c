@@ -18,6 +18,8 @@ node *createNode(int newData)
 node *front = NULL;
 node *rear = NULL;
 
+int isEmpty() { return rear == -1; }
+
 void enqueue(int data)
 {
     node *newNode = createNode(data);
@@ -33,7 +35,7 @@ void enqueue(int data)
 
 int dequeue()
 {
-    if (rear == NULL)
+    if (isEmpty())
     {
         printf("Queue is empty.\n");
         return -1;
@@ -46,7 +48,7 @@ int dequeue()
 
 int peek()
 {
-    if (rear == NULL)
+    if (isEmpty())
     {
         printf("Queue is empty.\n");
         return -1;
@@ -57,7 +59,7 @@ int peek()
 
 void display()
 {
-    if (rear == NULL)
+    if (isEmpty())
     {
         printf("Queue is empty.\n");
         return;
