@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct Node
 {
@@ -16,79 +15,57 @@ node *createNode(int newData)
 	return newNode;
 }
 
-typedef struct Queue
-{
-	node *front;
-	node *rear;
-	int size;
-} queue;
+node *front = NULL;
+node *rear = NULL;
 
-void initQueue(queue *q)
-{
-	q->front = NULL;
-	q->rear = NULL;
-	q->size = 0;
-}
+int isEmpty() { return rear == -1; }
 
-bool isEmpty(queue *q) { return q->rear == NULL; }
-
-void enqueue(queue *q, int data)
+void enqueue(int data)
 {
 	node *newNode = createNode(data);
-	if (q->rear == NULL)
+	if (rear == NULL)
 	{
-		q->front = q->rear = newNode;
+		front = rear = newNode;
+		return;
 	}
-	else
-	{
-		q->rear->next = newNode;
-		q->rear = newNode;
-	}
-	q->size++;
+
+	rear->next = newNode;
+	rear = newNode;
 }
 
-int dequeue(queue *q)
+int dequeue()
 {
-	if (isEmpty(q))
+	if (isEmpty())
 	{
 		printf("Queue is empty.\n");
 		return -1;
 	}
 
-	node *temp = q->front;
-	int remove_val = temp->data;
-	q->front = q->front->next;
-
-	if (q->front == NULL)
-	{
-		q->rear = NULL;
-	}
-
-	free(temp);
-	q->size--;
-	return remove_val;
+	int frontVal = front->data;
+	front = front->next;
+	return frontVal;
 }
 
-int peek(queue *q) // Return front value of the queue
+int peek()
 {
-	if (isEmpty(q))
+	if (isEmpty())
 	{
 		printf("Queue is empty.\n");
 		return -1;
 	}
 
-	return q->front->data;
+	return front->data;
 }
 
-void display(queue *q)
+void display()
 {
-	if (isEmpty(q))
+	if (isEmpty())
 	{
 		printf("Queue is empty.\n");
 		return;
 	}
 
-	node *currentNode = q->front;
+	node *currentNode = front;
 	while (currentNode != NULL)
 	{
 		printf("%d\n", currentNode->data);
@@ -96,27 +73,22 @@ void display(queue *q)
 	}
 }
 
-int getSize(queue *q)
-{
-	return q->size;
-}
-
 int main()
 {
-	queue q;
-	initQueue(&q);
 
-	enqueue(&q, 10);
-	enqueue(&q, 20);
-	enqueue(&q, 30);
-	enqueue(&q, 40);
-	enqueue(&q, 50);
+	enqueue(10);
+	enqueue(20);
+	enqueue(30);
 
-	printf("Peek-> %d\n", peek(&q));
-	printf("Dequeue-> %d\n", dequeue(&q));
-	printf("Display-> \n");
-	display(&q);
-	printf("Get size-> %d\n", getSize(&q));
+	printf("Display->\n");
+	display();
+	printf("Peek\n");
+
+	while (rear != NULL)
+	{
+		printf("%d\n", peek());
+		dequeue();
+	}
 
 	return 0;
 }
