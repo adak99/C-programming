@@ -2,95 +2,121 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct Queue 
+typedef struct Node
 {
-	int *arr;
+	int data;
+	struct Node *next;
+} node;
+
+node *createNode(int newData)
+{
+	node *newNode = (node *)malloc(sizeof(node));
+	newNode->data = newData;
+	newNode->next = NULL;
+	return newNode;
+}
+
+typedef struct Queue
+{
+	node *front;
+	node *rear;
 	int size;
-	int rear;
 } queue;
 
-void initQueue(queue *q, int n)
+void initQueue(queue *q)
 {
-	q->arr = (int *)malloc(n *sizeof(int));
-	q->size = n;
-	q->rear = -1;
+	q->front = NULL;
+	q->rear = NULL;
+	q->size = 0;
 }
 
-bool isEmpty(queue *q) { return q->rear == -1; }
+bool isEmpty(queue *q) { return q->rear == NULL; }
 
-bool isFull(queue *q) { return q->rear == q->size-1; }
-
-//enqueue
-void addElement(queue *q, int data)
+void enqueue(queue *q, int data)
 {
-	if(isFull(q))
+	node *newNode = createNode(data);
+	if (q->rear == NULL)
 	{
-		printf("Queue is full.\n");
+		q->front = q->rear = newNode;
+	}
+	else
+	{
+		q->rear->next = newNode;
+		q->rear = newNode;
+	}
+	q->size++;
+}
+
+int dequeue(queue *q)
+{
+	if (isEmpty(q))
+	{
+		printf("Queue is empty.\n");
+		return -1;
+	}
+
+	node *temp = q->front;
+	int remove_val = temp->data;
+	q->front = q->front->next;
+
+	if (q->front == NULL)
+	{
+		q->rear = NULL;
+	}
+
+	free(temp);
+	q->size--;
+	return remove_val;
+}
+
+int peek(queue *q) // Return front value of the queue
+{
+	if (isEmpty(q))
+	{
+		printf("Queue is empty.\n");
+		return -1;
+	}
+
+	return q->front->data;
+}
+
+void display(queue *q)
+{
+	if (isEmpty(q))
+	{
+		printf("Queue is empty.\n");
 		return;
 	}
-	
-	q->arr[++q->rear] = data;
+
+	node *currentNode = q->front;
+	while (currentNode != NULL)
+	{
+		printf("%d\n", currentNode->data);
+		currentNode = currentNode->next;
+	}
 }
 
-//dequeue
-int removeElement(queue *q)
+int getSize(queue *q)
 {
-	if(isEmpty(q))
-	{
-		printf("Queue is empty.\n");
-		return -1;
-	}
-	
-	int i, front = q->arr[0];
-	
-	for(i = 0; i < q->rear; i++)
-	{
-		q->arr[i] = q->arr[i + 1];
-	}
-	q->rear--;
-	return front;
+	return q->size;
 }
 
-// print queue
-int peek(queue *q)
-{
-	if(isEmpty(q))
-	{
-		printf("Queue is empty.\n");
-		return -1;
-	}
-	
-	return q->arr[0];
-}
-
-int main() 
+int main()
 {
 	queue q;
-	initQueue(&q, 5);
+	initQueue(&q);
 
-	addElement(&q, 10);
-	addElement(&q, 20);
-	addElement(&q, 30);
-	addElement(&q, 40);
-	addElement(&q, 50);
-	printf("Remove element: %d\n",removeElement(&q));
+	enqueue(&q, 10);
+	enqueue(&q, 20);
+	enqueue(&q, 30);
+	enqueue(&q, 40);
+	enqueue(&q, 50);
 
-	while (!isEmpty(&q)) 
-	{
-		printf("%d\n", peek(&q));
-		removeElement(&q);
-	}
+	printf("Peek-> %d\n", peek(&q));
+	printf("Dequeue-> %d\n", dequeue(&q));
+	printf("Display-> \n");
+	display(&q);
+	printf("Get size-> %d\n", getSize(&q));
 
-	free(q.arr);
 	return 0;
 }
-
-/*
-	output: 
-	
-	Remove element: 10
-	20
-	30
-	40
-	50
-*/
