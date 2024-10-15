@@ -18,7 +18,7 @@ node *createNode(int newData)
 node *front = NULL;
 node *rear = NULL;
 
-int isEmpty() { return rear == -1; }
+int isEmpty() { return rear == NULL; }
 
 void enqueue(int data)
 {
