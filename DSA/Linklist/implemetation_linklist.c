@@ -32,6 +32,30 @@ void addFirst(int data) // add first
 	size++;
 }
 
+void addMid(int data) // add mid
+{
+	node *newNode = createNode(data);
+	if (head == NULL)
+	{
+		head = newNode;
+		return;
+	}
+
+	if (size == 1)
+	{
+		head->next = newNode;
+		return;
+	}
+
+	int mid = size / 2;
+	node *currentNode = head;
+	for (int i = 0; i < mid - 1; i++)
+		currentNode = currentNode->next;
+
+	newNode->next = currentNode->next;
+	currentNode->next = newNode;
+}
+
 void addLast(int data) // addLast
 {
 	node *newNode = createNode(data);
@@ -60,6 +84,30 @@ void deleteFirst() // delte first
 	}
 	size--;
 	head = head->next;
+}
+
+void deleteMid()
+{
+
+	if (head == NULL)
+	{
+		printf("This list is empty.\n");
+		return;
+	}
+	size--;
+
+	int mid = size / 2;
+	if (mid == 1)
+	{
+		deleteFirst();
+		return;
+	}
+
+	node *currentNode = head;
+	for (int i = 0; i < mid - 1; i++)
+		currentNode = currentNode->next;
+
+	currentNode->next = currentNode->next->next;
 }
 
 void deleteLast()
