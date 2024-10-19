@@ -32,4 +32,6 @@ int main()
         printf("%d ", arr[i]);
     }
     printf("\n"); // use for clear output
+
+    return 0;
 }
