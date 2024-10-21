@@ -1,70 +1,65 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void conqure(int arr[], int strIdx, int endIdx)
+int *conqure(int *left, int *right, int leftIdx, int rightIdx)
 {
-    int mid = strIdx + (endIdx - strIdx) / 2;
-    int newArr[endIdx - strIdx + 1];
+    int *newArr = (int *)malloc((leftIdx + rightIdx) * sizeof(int));
 
-    int i = strIdx;  // Starting index for left subarray
-    int j = mid + 1; // Starting index for right subarray
-    int k = 0;       // Index for newArr
+    int i, j, k;
+    i = j = k = 0;
 
-    while (i <= mid && j <= endIdx)
+    while (i < leftIdx && j < rightIdx)
     {
-        if (arr[i] < arr[j])
-        {
-            newArr[k++] = arr[i++];
-        }
+        if (left[i] < right[j])
+            newArr[k++] = left[i++];
         else
-        {
-            newArr[k++] = arr[j++];
-        }
+            newArr[k++] = right[j++];
     }
 
-    while (i <= mid)
-    {
-        newArr[k++] = arr[i++];
-    }
+    while (i < leftIdx)
+        newArr[k++] = left[i++];
 
-    while (j <= endIdx)
-    {
-        newArr[k++] = arr[j++];
-    }
+    while (j < rightIdx)
+        newArr[k++] = right[j++];
 
-    for (int i = 0; i < k; i++)
-    {
-        arr[strIdx + i] = newArr[i];
-    }
+    return newArr;
 }
 
-void divided(int arr[], int strIdx, int endIdx)
+int *divided(int *arr, int size)
 {
-    if (strIdx >= endIdx)
+    if (size == 1)
     {
-        return;
+        int *baseArr = (int *)malloc(size * sizeof(int));
+        baseArr[0] = arr[0];
+        return baseArr;
     }
 
-    int mid = strIdx + (endIdx - strIdx) / 2;
+    int mid = size / 2;
 
-    divided(arr, strIdx, mid);
-    divided(arr, mid + 1, endIdx);
+    int *left = divided(arr, mid);
+    int *righ = divided(arr + mid, size - mid);
 
-    conqure(arr, strIdx, endIdx);
+    int *result = conqure(left, righ, mid, size - mid);
+
+    free(left);
+    free(righ);
+
+    return result;
 }
 
 int main()
 {
-    int arr[] = {4, 5, 3, 1, 6, 2};
+    int arr[] = {4, 5, 3, 1, 6, 2}; // array
     int size = sizeof(arr) / sizeof(arr[0]);
 
-    divided(arr, 0, size - 1);
+    int *ans = divided(arr, size);
 
     for (int i = 0; i < size; i++)
     {
-        printf("%d ", arr[i]);
+        printf("%d ", ans[i]);
     }
 
-    printf("\n");
+    free(ans);
 
     return 0;
 }
