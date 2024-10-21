@@ -81,8 +81,15 @@ int main()
     addItems(40);
     printf("Order->\n");
     printLL();
-    printf("Using iterator-> \n");
+    printf("Reverse list-> \n");
     reverseLL();
     printLL();
     return 0;
 }
+
+/*
+Order->
+10 ->20 ->30 ->40 ->NULL
+Reverse list ->
+40 ->30 ->20 ->10 ->NULL
+*/
